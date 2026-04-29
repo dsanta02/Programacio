@@ -1,0 +1,33 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package FicherosTexto.HOJA_EJERCICIOS;
+
+import java.util.*;
+import java.io.*;
+
+public class ejercicio10_4v2 {
+
+    public static void main(String[] args) {
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new FileReader("D:\\Users\\disacr127\\Downloads\\TEXTO_PARCTICA10_4.txt"));
+            String linea;
+            
+            while ((linea = in.readLine()) != null) {
+                System.out.println(linea);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            if (in != null){
+            try {
+                    in.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+            }
+        }
+    }   
+}
