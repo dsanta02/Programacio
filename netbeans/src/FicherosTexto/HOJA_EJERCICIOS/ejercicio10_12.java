@@ -4,7 +4,6 @@
  */
 package FicherosTexto.HOJA_EJERCICIOS;
 
-import java.awt.image.ImagingOpException;
 import java.util.*;
 import java.io.*;
 
@@ -17,7 +16,13 @@ public class ejercicio10_12 {
         String nombre = sc.nextLine();
         
         try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(nombre));
+            BufferedWriter out = new BufferedWriter(new FileWriter(nombre)); 
+            //-------*******SI PONES TRUE************
+            //Si el fichero existe → NO lo borra, añade al final
+            //Si no existe → lo crea
+            //-------********SI NO PONES TRUE**********
+            //Si el fichero existe → ❌ lo borra entero y lo reescribe
+            //Si no existe → ✔ lo crea
             System.out.println("Escribe texto 'fin' para terminar");
             String linea = sc.nextLine();
             
