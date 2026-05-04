@@ -2,47 +2,39 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package FicherosTexto;
+package FICHEROS_BINARIOS;
 
 import java.util.*;
 import java.io.*;
 
-public class ejercicio13 {
+public class ejercicio_1 implements Serializable{
     
     public static void main(String[] args) {
-
-    Scanner sc = new Scanner(System.in);
-
-        System.out.println("intruduce el nombre del fichero: ");
-        String archivo = sc.nextLine();
         
-        if (archivo.isEmpty()) {
-            archivo = "prueba.txt";
-        }
+        int [] tabla = {1, 2, 3, 56, 34, 12, 45, 56, 45, 67};
         
-        
-        BufferedReader in = null;
+        ObjectOutputStream out = null;
         
         try {
-             in = new BufferedReader(new FileReader(archivo));
-            System.out.println(in.readLine());
+            out = new ObjectOutputStream(new FileOutputStream("datos.dat"));
+            
+            for (int t: tabla ) {
+                out.writeInt(t);
+            }
             
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } finally {
-            if (in != null) {
+            if (out != null) {
                 try {
-                    in.close();
+                    out.close();
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
             }
         }
-;
-        {
-            
-        }
-    
+        
+        
     }
     
 }

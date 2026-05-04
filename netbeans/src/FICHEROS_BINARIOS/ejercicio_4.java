@@ -2,31 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package FicherosTexto;
+package FICHEROS_BINARIOS;
 
 import java.util.*;
 import java.io.*;
 
-public class ejercicio13 {
-    
+public class ejercicio_4 {
+
     public static void main(String[] args) {
-
-    Scanner sc = new Scanner(System.in);
-
-        System.out.println("intruduce el nombre del fichero: ");
-        String archivo = sc.nextLine();
         
-        if (archivo.isEmpty()) {
-            archivo = "prueba.txt";
-        }
-        
-        
-        BufferedReader in = null;
+        ObjectInputStream in = null;
+        int t [] = new int[10];
         
         try {
-             in = new BufferedReader(new FileReader(archivo));
-            System.out.println(in.readLine());
+            in = new ObjectInputStream(new FileInputStream("dotos2.dat"));
+            for (int i : t) {
+                t[i] = in.readInt();               
+            }
             
+            System.out.println(Arrays.toString(t)); 
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -38,11 +32,6 @@ public class ejercicio13 {
                 }
             }
         }
-;
-        {
-            
-        }
-    
     }
     
 }
