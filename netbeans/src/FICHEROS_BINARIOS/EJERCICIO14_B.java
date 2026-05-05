@@ -16,7 +16,7 @@ public class EJERCICIO14_B{
 
         procesar();
 
-        exportarFichero(array);
+        exportarFichero();
     }
 
 
@@ -70,11 +70,24 @@ public class EJERCICIO14_B{
 
     static void exportarFichero() {
 
-        try (BufferedWriter out = new BufferedWriter(new FileWriter("numerosGen.txt"));
-                ObjectInputStream in = new ObjectInputStream(new FileInputStream("numerosGen.dat"))) {
+        try (BufferedWriter out = new BufferedWriter(new FileWriter("numerosGen2.txt"));
+                ObjectInputStream in = new ObjectInputStream(new FileInputStream("numeros2.dat"))) {
 
             while (true) {
-                
+                try {
+                    int num = in.readInt();
+                    if (num %2 == 0) {
+                        out.write(num + "PAR");
+                    } else {
+                        out.write(num + "Inpar");
+                    }
+                    
+                    out.newLine();
+                    
+                    
+                } catch (EOFException e) {
+                    return;
+                }
             }
 
         } catch (IOException e) {

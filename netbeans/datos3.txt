@@ -1,0 +1,11 @@
+1 inpar
+22 par
+35 inpar
+68 par
+23 inpar
+12 par
+55 inpar
+14 par
+17 inpar
+46 par
+33 inpar
