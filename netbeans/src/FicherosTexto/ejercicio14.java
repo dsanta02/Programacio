@@ -19,7 +19,9 @@ public class ejercicio14 {
         BufferedWriter out = null;
         
         try {
-            out = new BufferedWriter(new FileWriter("Archivo.txt",true));
+            out = new BufferedWriter(new FileWriter("Archivo.txt",true)); //si el contenido exixte lo
+            //pone al final sinon crea uno nuevo y si no hay ninguno crea uno nuevo 
+            
             out.write(nombre + "" + edad);
             out.newLine();
             

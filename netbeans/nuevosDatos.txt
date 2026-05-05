@@ -1,9 +1,11 @@
-23inpares
-4pares
-44pares
-123inpares
-56745inpares
-21inpares
-1inpares
-45inpares
-56pares
+12 - PAR
+23 - Inpar
+33 - Inpar
+256 - PAR
+443 - Inpar
+568 - PAR
+987 - Inpar
+23 - Inpar
+22 - PAR
+1 - Inpar
+90 - PAR

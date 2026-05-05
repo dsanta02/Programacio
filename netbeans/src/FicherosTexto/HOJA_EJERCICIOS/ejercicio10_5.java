@@ -21,7 +21,7 @@ public class ejercicio10_5 {
                 String[] subcadenas = linea.split(" ");
 
                 for (int i = 0; i < subcadenas.length; i++) {
-                    suma += Double.valueOf(subcadenas[i]);
+                    suma = suma + Double.valueOf(subcadenas[i]);
                     cont++;
                 }
                 linea = in.readLine();

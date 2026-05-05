@@ -1,8 +1,0 @@
-4PAR
-5Inpar
-2PAR
-45Inpar
-66PAR
-3Inpar
-22PAR
-26PAR
