@@ -70,18 +70,11 @@ public class EJERCICIO14_B{
 
     static void exportarFichero() {
 
-        try (BufferedWriter out =new BufferedWriter(new FileWriter("numeros.txt"));
-                ObjectInputStream in = ) {
+        try (BufferedWriter out = new BufferedWriter(new FileWriter("numerosGen.txt"));
+                ObjectInputStream in = new ObjectInputStream(new FileInputStream("numerosGen.dat"))) {
 
-            for (int num : array) {
-
-                if (num % 2 == 0) {
-                    out.write(num + " - PAR");
-                } else {
-                    out.write(num + " - IMPAR");
-                }
-
-                out.newLine();
+            while (true) {
+                
             }
 
         } catch (IOException e) {
