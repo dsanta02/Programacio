@@ -1,0 +1,8 @@
+4 - PAR
+5 - IMPAR
+2 - PAR
+45 - IMPAR
+66 - PAR
+3 - IMPAR
+22 - PAR
+26 - PAR

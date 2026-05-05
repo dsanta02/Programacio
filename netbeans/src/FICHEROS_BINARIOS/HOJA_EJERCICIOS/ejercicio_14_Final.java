@@ -71,9 +71,9 @@ public class ejercicio_14_Final implements Serializable{
             out = new BufferedWriter(new FileWriter("numeros.txt"));
             for (int i : nums) {
                 if (i % 2 == 0) {
-                    out.write(i);
+                    out.write(i + "PAR");
                 } else {
-                    out.write(i);
+                    out.write(i + "INPARA");
                 }
             }
             out.newLine();
@@ -90,5 +90,5 @@ public class ejercicio_14_Final implements Serializable{
             } 
         }
         
-        }
+    }
 }
