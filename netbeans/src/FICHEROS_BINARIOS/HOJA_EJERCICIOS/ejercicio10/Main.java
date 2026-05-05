@@ -43,6 +43,7 @@ public class Main implements Serializable{
             System.out.println("5.salir: ");
             System.out.println("elige una opcion: ");
             opcion = sc.nextInt();
+            sc.nextLine();
             
             switch (opcion) {
 
@@ -54,6 +55,8 @@ public class Main implements Serializable{
                     System.out.println("introduce telefono: ");
                     int tel = sc.nextInt();
                     
+                    sc.nextLine();
+                    
                     Cliente nuevo = new Cliente(id, nombre, tel);
                     
                     caja = Arrays.copyOf(caja, caja.length + 1);
@@ -63,6 +66,7 @@ public class Main implements Serializable{
                 case 2: 
                     System.out.println("que posicion desea modificar: ");
                     int pos = sc.nextInt();
+                    sc.nextLine();
                     
                     if (pos > 0 && pos < caja.length) {
                         System.out.println("introduce nuevo id: ");
@@ -71,7 +75,7 @@ public class Main implements Serializable{
                         String nombre2 = sc.nextLine();
                         System.out.println("nuevo telefono: ");
                         int tel2 = sc.nextInt();
-                        
+                        sc.nextLine();
                         caja[pos] = new Cliente(id2, nombre2, tel2);
                     } else {
                         System.out.println("pos invalida");
@@ -82,10 +86,11 @@ public class Main implements Serializable{
                     System.out.println("introduce la posicion que quieres eliminar: ");
                     int pos2 = sc.nextInt();
                     
-                    if (pos2 > 0 && pos2 < caja.length) {
+                    if (pos2 >= 0 && pos2 < caja.length) {
                         for (int i = pos2; i < caja.length-1; i ++) {
                             caja[i] = caja [i + 1];
                         }
+                        caja = Arrays.copyOf(caja, caja.length -1);
                     } else {
                         System.out.println("numero no valido ");
                     }
