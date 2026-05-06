@@ -26,10 +26,10 @@ public class ejercicio14_A_soloMain implements Serializable{
             
             for (int i : array) {
                 if (i % 2 == 0) {
-                    System.out.println("par");
+                    System.out.println(i + "par");
                     pares.writeInt(i);
                 } else {
-                    System.out.println("inpar");
+                    System.out.println(i + "inpar");
                     inpares.writeInt(i);
                 }
                 

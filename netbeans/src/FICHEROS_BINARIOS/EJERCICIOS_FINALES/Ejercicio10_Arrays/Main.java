@@ -39,6 +39,7 @@ public class Main implements Serializable{
                     String nombre = sc.nextLine();
                     System.out.println("numero: ");
                     int num = sc.nextInt();
+                    
                     Cliente nuevo = new Cliente(id, nombre, num);
                     
                     caja = Arrays.copyOf(caja, caja.length + 1);
@@ -55,6 +56,7 @@ public class Main implements Serializable{
                     String nombre2 = sc.nextLine();
                     System.out.println("numero: ");
                     int num2 = sc.nextInt();
+                    
                     Cliente nuevo2 = new Cliente(id2, nombre2, num2);
                     
                     if (pos < caja.length && pos >= 0) {

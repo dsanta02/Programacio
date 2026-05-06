@@ -6,7 +6,7 @@ package FICHEROS_BINARIOS;
 
 import java.io.*;
 
-public class EJERCICIO14_B{
+public class EJERCICIO14_B implements Serializable{
 
     public static void main(String[] args) throws ClassNotFoundException {
 

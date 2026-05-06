@@ -79,15 +79,14 @@ public class ejercicio14_B {
                     }
                     out.newLine();
                 } catch (EOFException e) {
-                    return;
+                    break;
                 }
             }
-            
-            
+                   
         } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
         
     }
-    
     
 }

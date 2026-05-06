@@ -8,7 +8,7 @@ import java.util.*;
 import java.io.*;
 
 
-public class ejercicio14_2 {
+public class ejercicio14_2 implements Serializable{
 
     public static void main(String[] args) throws ClassNotFoundException {
         

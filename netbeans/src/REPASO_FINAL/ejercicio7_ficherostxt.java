@@ -36,3 +36,32 @@ public class ejercicio7_ficherostxt {
     }
     
 }
+
+
+
+
+//        try (
+//            BufferedReader in = new BufferedReader(new FileReader("numerosReales.txt"));
+//            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("numeros.dat"))
+//        ) {
+//
+//            double num;
+//            String linea = in.readLine();
+//
+//            while (linea != null) {
+//
+//                Scanner s = new Scanner(linea).useLocale(Locale.US);
+//
+//                if (s.hasNextDouble()) {
+//                    num = s.nextDouble();
+//                    out.writeDouble(num); // 👈 guardar en binario
+//                }
+//
+//                linea = in.readLine();
+//            }
+//
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
+//}
