@@ -17,9 +17,11 @@ public class PruebaBD_profe {
         Statement sentencia;
         ResultSet rs;
         String sql = "select * from alumnos2526";
-        String url = "jdbc:oracle:thin:@//localhost:1521/XE";//Puerto 1521 y Service Name XEPDB1
+        String url = "jdbc:oracle:thin:@//localhost:1521/XE";
+//Puerto 1521 y Service Name XEPDB1
         try {
-            con = DriverManager.getConnection(url, "SYSTEM", "4341");//Conecta con usuario profe y contraseña profe
+            con = DriverManager.getConnection(url, "SYSTEM", "4341");
+//Conecta con usuario profe y contraseña profe
             sentencia = con.createStatement();
             rs = sentencia.executeQuery(sql);
             while (rs.next()) { 
