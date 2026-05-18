@@ -1,163 +1,195 @@
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Scanner;
+
+package prog_bd;
+
+import java.util.*;
+import java.sql.*;
+
+
 
 public class ListadoInteractivo {
 
-    // DATOS DE CONEXIÓN (cambiar por los de la profesora)
-    private static final String URL = "jdbc:mysql://localhost:3306/empresa";
-    private static final String USER = "root";
-    private static final String PASSWORD = "1234";
-
     public static void main(String[] args) {
-
-        Scanner teclado = new Scanner(System.in);
-
-        try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD)) {
-
-            System.out.println("Conexión realizada correctamente.");
-
-            String respuesta;
-
+        
+        Scanner sc = new Scanner(System.in);
+        
+        String url = "jdbc:oracle:thin:@//localhost:1521/XEPDB_M";
+        
+        String ciudad;
+        int numOficina;
+        String respuesta;
+        
+        try (
+                Connection con = DriverManager.getConnection(url, "alumno", "alumno2526")
+                ){
+            
+        do {    
+            
             do {
-
-                int numOficina = -1;
-                String ciudad;
-
-                // PEDIR CIUDAD HASTA QUE SEA VÁLIDA
-                do {
-                    System.out.print("\nIntroduce una ciudad: ");
-                    ciudad = teclado.nextLine();
-
-                    numOficina = buscarOficina(con, ciudad);
-
-                    if (numOficina == -1) {
-                        System.out.println("No existe ninguna oficina en esa ciudad.");
-                    }
-
-                } while (numOficina == -1);
-
-                // MOSTRAR EMPLEADOS Y RESUMEN
-                mostrarEmpleados(con, numOficina, ciudad);
-
-                // REPETICIÓN
-                System.out.print("\n¿Deseas consultar otra ciudad? (S/N): ");
-                respuesta = teclado.nextLine().toUpperCase();
-
-            } while (respuesta.equals("S"));
-
-            System.out.println("Programa finalizado.");
-
+                
+                System.out.println("introduce una ciudad: ");
+                ciudad = sc.nextLine();
+                
+                numOficina = buscarOfi(con, ciudad);
+                
+                if(numOficina == -1) {
+                    
+                    System.out.println("no existe ninguna oficina en esa ciudad");
+                    
+                }
+                
+                
+            }while(numOficina == -1);
+            
+            mostrarEmple(ciudad, numOficina, con);
+            
+            ResumenEstadistico(con, numOficina);
+            
+            System.out.println("desea consultar otra ciudad: (S/N)");
+            respuesta = sc.nextLine().toUpperCase();
+            
+        }while (respuesta.equals("S"));
+        
+            System.out.println("programa finalizado");
+            
+            
         } catch (SQLException e) {
-            System.out.println("Error de conexión: " + e.getMessage());
+            
+            System.out.println(e.getMessage());
+            
         }
-
-        teclado.close();
+                
+                
     }
-
-    // BUSCAR OFICINA POR CIUDAD
-    public static int buscarOficina(Connection con, String ciudad) throws SQLException {
-
-        String sql = "SELECT num_oficina FROM Oficinas2526 WHERE ciudad = ?";
-
-        try (PreparedStatement sentencia = con.prepareStatement(sql)) {
-
+    
+    static int buscarOfi(Connection con, String ciudad) {
+        
+        String sql = "SELECT OFICINA FROM OFICINAS2526 "
+                + " WHERE CIUDAD = ?";
+        
+        ResultSet rs;
+        
+        try (
+                PreparedStatement sentencia = con.prepareStatement(sql)
+                ){
+            
             sentencia.setString(1, ciudad);
-
-            try (ResultSet resultado = sentencia.executeQuery()) {
-
-                if (resultado.next()) {
-                    return resultado.getInt("num_oficina");
-                }
-            }
+            
+            rs = sentencia.executeQuery();
+            
+           if(rs.next()) {
+               return (rs.getInt("oficina"));
+           }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
+        
         return -1;
+        
     }
+    
 
-    // MOSTRAR EMPLEADOS Y RESUMEN
-    public static void mostrarEmpleados(Connection con, int numOficina, String ciudad)
-            throws SQLException {
 
-        String sql = """
-                SELECT nombre, edad, puesto
-                FROM Empleados2526
-                WHERE oficina = ?
-                """;
-
-        try (PreparedStatement sentencia = con.prepareStatement(sql)) {
-
+    static void mostrarEmple (String ciudad, int numOficina, Connection con) {
+        
+        String sql = "SELECT NOMBRE, EDAD, PUESTO FROM EMPLEADOS2526"
+                + " WHERE OFICINA = ?";
+        
+        ResultSet rs;
+        
+        try (
+                PreparedStatement sentencia = con.prepareStatement(sql)
+                ){
+            
             sentencia.setInt(1, numOficina);
+            
+            rs = sentencia.executeQuery();
+            
+            System.out.println("empleados en " + ciudad + " ( oficina " + numOficina + " ) ");
 
-            try (ResultSet resultado = sentencia.executeQuery()) {
-
-                System.out.println("\n--- Empleados en " + ciudad +
-                        " (oficina " + numOficina + ") ---");
-
-                int totalEmpleados = 0;
-                int sumaEdades = 0;
-
-                String nombreJoven = "";
-                int edadJoven = Integer.MAX_VALUE;
-
-                String nombreVeterano = "";
-                int edadVeterano = Integer.MIN_VALUE;
-
-                while (resultado.next()) {
-
-                    String nombre = resultado.getString("nombre");
-                    int edad = resultado.getInt("edad");
-                    String puesto = resultado.getString("puesto");
-
-                    System.out.println("Nombre: " + nombre
-                            + " | Edad: " + edad
-                            + " | Puesto: " + puesto);
-
-                    // ESTADÍSTICAS
-                    totalEmpleados++;
-                    sumaEdades += edad;
-
-                    // MÁS JOVEN
-                    if (edad < edadJoven) {
-                        edadJoven = edad;
-                        nombreJoven = nombre;
-                    }
-
-                    // MÁS VETERANO
-                    if (edad > edadVeterano) {
-                        edadVeterano = edad;
-                        nombreVeterano = nombre;
-                    }
-                }
-
-                // RESUMEN
-                if (totalEmpleados > 0) {
-
-                    double mediaEdad =
-                            (double) sumaEdades / totalEmpleados;
-
-                    System.out.println("\n--- Resumen ---");
-                    System.out.println("Total de empleados : " + totalEmpleados);
-
-                    System.out.println("Más joven : "
-                            + nombreJoven + " (" + edadJoven + " años)");
-
-                    System.out.println("Más veterano : "
-                            + nombreVeterano + " (" + edadVeterano + " años)");
-
-                    System.out.printf("Media de edad : %.1f años%n", mediaEdad);
-
-                } else {
-                    System.out.println("No hay empleados en esta oficina.");
-                }
+            
+            while(rs.next()) {
+                
+                
+                System.out.println("nombre: " + rs.getString("NOMBRE") + " || " + rs.getInt("EDAD") + " || " + rs.getString("PUESTO"));
+                              
             }
+            
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
+        
     }
+    
+    static void ResumenEstadistico(Connection con, int numOficina) {
+
+    String sql =
+            "SELECT NOMBRE, EDAD "
+            + "FROM EMPLEADOS2526 "
+            + "WHERE OFICINA = ? "
+            + "ORDER BY EDAD ASC";
+
+    try (
+        PreparedStatement sentencia = con.prepareStatement(
+                sql,
+                ResultSet.TYPE_SCROLL_INSENSITIVE,  //cuando queramos mover el cursor se 
+                ResultSet.CONCUR_READ_ONLY  //usa estos metodos del result set
+        )
+    ) {
+
+        sentencia.setInt(1, numOficina);
+
+        ResultSet rs = sentencia.executeQuery();
+
+        rs.first(); //cursor primera posicion
+        String jovenNom = rs.getString("NOMBRE");
+        int jovenEdad = rs.getInt("EDAD");
+
+        
+        rs.last(); //cursor ultima posicion
+        String viejoNom = rs.getString("NOMBRE");
+        int viejoEdad = rs.getInt("EDAD");
+
+
+        rs.beforeFirst(); //te situal en la posicion inical antes del primero
+                          //como te has moivido tienes que recolocarte
+
+        int total = 0;
+        int suma = 0;
+        int edad = 0;
+
+        while (rs.next()) {
+            total++;
+            edad = rs.getInt("EDAD");
+            suma = suma + edad;
+        }
+
+        System.out.println("\n--- RESUMEN ---");
+        System.out.println("Total: " + total);
+
+        System.out.println(
+                "Más joven: " + jovenNom + " (" + jovenEdad + ")"
+        );
+
+        System.out.println(
+                "Más viejo: " + viejoNom + " (" + viejoEdad + ")"
+        );
+
+        System.out.println(
+                "Media: " + (double) suma / total
+        );
+
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+}
+    
+
 }
